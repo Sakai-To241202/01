@@ -1,0 +1,70 @@
+.container {
+  width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.promptForm {
+  width: 100%;
+  max-width: 760px;
+  margin-bottom: 20px;
+}
+
+.promptInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.submitButton:hover {
+  background-color: #0056b3;
+}
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.app {
+  width: 100%;
+  max-width: 760px;
+  min-height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.responseMessage {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}
+
+.errorMessage {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #ffe6e6;
+  color: #8b0000;
+  border-radius: 4px;
+  border: 1px solid #dc3545;
+}/*# sourceMappingURL=page.module.css.map */

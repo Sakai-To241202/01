@@ -1,0 +1,158 @@
+// Variables
+$primary-color: #007bff;
+$primary-hover: #0056b3;
+$border-color: #ccc;
+$error-bg: #ffe6e6;
+$error-color: #dc3545;
+$error-text: #8b0000;
+$response-bg: #f8f9fa;
+$border-radius: 4px;
+$font-size-base: 16px;
+$container-width: 800px;
+
+// Mixins
+@mixin box-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Container
+.container {
+  width: $container-width;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+// Form
+#prompt-form {
+  width: $container-width;
+  margin: 0 auto 20px;
+  padding: 0 20px;
+
+  #prompt-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: $font-size-base;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    font-size: $font-size-base;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
+
+// App area
+// Variables
+$primary-color: #007bff;
+$primary-hover: #0056b3;
+$border-color: #ccc;
+$error-bg: #ffe6e6;
+$error-color: #dc3545;
+$error-text: #8b0000;
+$response-bg: #f8f9fa;
+$border-radius: 4px;
+$font-size-base: 16px;
+
+// Base container
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+// Form styles
+#prompt-form {
+  width: $container-width;
+  margin: 0 auto 20px;
+  padding: 0 20px;
+}
+
+#prompt-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: $font-size-base;
+  resize: vertical;
+}
+
+// Button styles
+button {
+  padding: 10px 20px;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  font-size: $font-size-base;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+}
+
+// App container
+#app {
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+// Message styles
+.response-message {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: $response-bg;
+  border-radius: $border-radius;
+  white-space: pre-wrap;
+}
+
+.error-message {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: $error-bg;
+  color: $error-text;
+  border-radius: $border-radius;
+  border: 1px solid $error-color;
+}
+
+// Messages
+.response-message {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: $border-radius;
+  white-space: pre-wrap;
+}
+
+.error-message {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #ffe6e6;
+  color: #8b0000;
+  border-radius: $border-radius;
+  border: 1px solid $error-color;
+}
