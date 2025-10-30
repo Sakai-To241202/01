@@ -1,4 +1,4 @@
-// File: /Users/user/Desktop/code-check/039.5 geminiAPI-browser-api_env_local/app/api/generate/route.ts
+// File: /Users/user/Desktop/code-check/39/app/api/generate/route.ts
 import * as entry from '../../../../../app/api/generate/route.js'
 import type { NextRequest } from 'next/server.js'
 

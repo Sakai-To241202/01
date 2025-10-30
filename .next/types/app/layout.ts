@@ -1,4 +1,4 @@
-// File: /Users/user/Desktop/code-check/039.5 geminiAPI-browser-api_env_local/app/layout.tsx
+// File: /Users/user/Desktop/code-check/39/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
