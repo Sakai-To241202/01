@@ -1,55 +1,47 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
 import styles from "./page.module.scss";
 
 export default function Home() {
-  const [responses, setResponses] = useState<Array<{ text: string; isError: boolean }>>([]);
+  // チャット履歴: role 2user|ai, text, isError可
+  const [messages, setMessages] = useState<Array<{ role: "user" | "ai"; text: string; isError?: boolean }>>([]);
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const displayResponse = (text: string, isError = false) => {
-    setResponses((prev) => [...prev, { text, isError }]);
-  };
-
-  const clearResponses = () => {
-    setResponses([]);
+  const addMessage = (msg: { role: "user" | "ai"; text: string; isError?: boolean }) => {
+    setMessages((prev) => [...prev, msg]);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const prompt = formData.get("prompt")?.toString().trim();
-
+    const prompt = input.trim();
     if (!prompt) {
-      displayResponse("質問を入力してください", true);
+      addMessage({ role: "user", text: "", isError: true });
+      addMessage({ role: "ai", text: "質問を入力してください", isError: true });
       return;
     }
-
-    clearResponses();
+    addMessage({ role: "user", text: prompt });
     setIsLoading(true);
-    displayResponse("Gemini API で応答を生成中です...");
-
+    setInput("");
+    // textareaRef.current?.focus();
     try {
+      // Gemini APIにこれまでのmessages + 今回ユーザー入力を送信
+      const userAndPrevMsgs = [...messages, { role: "user", text: prompt }];
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ messages: userAndPrevMsgs }),
       });
-
       const data = await res.json();
-      clearResponses();
-
       if (!res.ok) {
-        displayResponse(`サーバーエラー: ${data.error || res.statusText}`, true);
+        addMessage({ role: "ai", text: `サーバーエラー: ${data.error || res.statusText}`, isError: true });
         return;
       }
-
-      displayResponse("--- Gemini の応答 ---");
-      displayResponse(data.text);
-      displayResponse("-----------------------");
+      addMessage({ role: "ai", text: data.text });
     } catch (err) {
-      clearResponses();
-      displayResponse(`通信エラー: ${err instanceof Error ? err.message : String(err)}`, true);
+      addMessage({ role: "ai", text: `通信エラー: ${err instanceof Error ? err.message : String(err)}`, isError: true });
     } finally {
       setIsLoading(false);
     }
@@ -58,15 +50,16 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.promptForm}>
-        <textarea name="prompt" rows={4} placeholder="Geminiに質問してください" className={styles.promptInput} />
-        <button type="submit" disabled={isLoading} className={styles.submitButton}>
+        <textarea name="prompt" rows={4} ref={textareaRef} placeholder="Geminiに質問してください" className={styles.promptInput} value={input} onChange={(e) => setInput(e.target.value)} disabled={isLoading} />
+        <button type="submit" disabled={isLoading || !input.trim()} className={styles.submitButton}>
           {isLoading ? "生成中..." : "送信"}
         </button>
       </form>
       <div className={styles.app}>
-        {responses.map((response, index) => (
-          <div key={index} className={response.isError ? styles.errorMessage : styles.responseMessage}>
-            {response.text}
+        {messages.map((m, idx) => (
+          <div key={idx} className={m.isError ? styles.errorMessage : styles.responseMessage}>
+            <span style={{ fontWeight: "bold" }}>{m.role === "user" ? "あなた: " : "Gemini: "}</span>
+            {m.text}
           </div>
         ))}
       </div>
